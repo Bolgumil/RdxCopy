@@ -15,8 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InputProcessor\CliArgumentProcessor.csproj" />
-    <ProjectReference Include="..\TestHelper\TestHelper.csproj" />
+    <ProjectReference Include="..\RdxCopy.CliArgumentProcessor\RdxCopy.CliArgumentProcessor.csproj" />
+    <ProjectReference Include="..\RdxCopy.Commands\RdxCopy.Commands.csproj" />
+    <ProjectReference Include="..\RdxCopy.TestHelper\RdxCopy.TestHelper.csproj" />
   </ItemGroup>
 
 </Project>

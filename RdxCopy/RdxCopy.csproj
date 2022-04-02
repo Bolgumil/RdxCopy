@@ -8,8 +8,4 @@
 		<PublishSingleFile>true</PublishSingleFile>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\InputProcessor\CliArgumentProcessor.csproj" />
-	</ItemGroup>
-
 </Project>

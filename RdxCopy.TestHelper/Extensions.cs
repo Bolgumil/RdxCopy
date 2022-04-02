@@ -1,4 +1,4 @@
-﻿namespace TestHelper
+﻿namespace RdxCopy.TestHelper
 {
     public static class Extensions
     {

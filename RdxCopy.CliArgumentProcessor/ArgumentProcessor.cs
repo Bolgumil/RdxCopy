@@ -1,8 +1,7 @@
-﻿using CliArgumentProcessor.ArgumentProcessors;
-using CliArgumentProcessor.Commands;
-using System.Collections.Generic;
+﻿using RdxCopy.CliArgumentProcessor.ArgumentProcessors;
+using RdxCopy.Commands;
 
-namespace CliArgumentProcessor
+namespace RdxCopy.CliArgumentProcessor
 {
     /// <summary>
     /// Gets the CLI arguments and converts them into internal commands.

@@ -1,9 +1,9 @@
-﻿using CliArgumentProcessor.ArgumentProcessors;
-using CliArgumentProcessor.Commands;
-using NUnit.Framework;
-using TestHelper;
+﻿using NUnit.Framework;
+using RdxCopy.CliArgumentProcessor.ArgumentProcessors;
+using RdxCopy.Commands;
+using RdxCopy.TestHelper;
 
-namespace CliArgumentProcessor.Tests2.ConcreteArgumentProcessorTests
+namespace RdxCopy.CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
 {
     public class CopyFolderArgumentProcessorTests
     {

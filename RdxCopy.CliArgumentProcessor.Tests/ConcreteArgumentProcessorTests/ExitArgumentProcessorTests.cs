@@ -1,18 +1,18 @@
-﻿using CliArgumentProcessor.ArgumentProcessors;
-using CliArgumentProcessor.Commands;
-using NUnit.Framework;
-using TestHelper;
+﻿using NUnit.Framework;
+using RdxCopy.CliArgumentProcessor.ArgumentProcessors;
+using RdxCopy.Commands;
+using RdxCopy.TestHelper;
 
-namespace CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
+namespace RdxCopy.CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
 {
-    public class HelpArgumentProcessorTests
+    public class ExitArgumentProcessorTests
     {
-        private static HelpArgumentProcessor _helpArgumentProcessor;
+        private static ExitArgumentProcessor _exitArgumentProcessor;
 
         [OneTimeSetUp]
         public static void Init()
         {
-            _helpArgumentProcessor = new HelpArgumentProcessor();
+            _exitArgumentProcessor = new ExitArgumentProcessor();
         }
 
         [Test]
@@ -22,7 +22,7 @@ namespace CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
             string[] args = null;
 
             // Act
-            var result = _helpArgumentProcessor.GetCommand(args);
+            var result = _exitArgumentProcessor.GetCommand(args);
 
             // Assert
             Assert.IsInstanceOf<NotCommand>(result);
@@ -35,7 +35,7 @@ namespace CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
             var args = System.Array.Empty<string>();
 
             // Act
-            var result = _helpArgumentProcessor.GetCommand(args);
+            var result = _exitArgumentProcessor.GetCommand(args);
 
             // Assert
             Assert.IsInstanceOf<NotCommand>(result);
@@ -43,37 +43,36 @@ namespace CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
 
         [Test]
         [TestCase(new object[] { "" })]
-        [TestCase(new object[] { "-x" })]
-        [TestCase(new object[] { "-h", "-?" })]
-        [TestCase(new object[] { "--help", "-?" })]
-        [TestCase(new object[] { "-help" })]
-        [TestCase(new object[] { "--?" })]
+        [TestCase(new object[] { "-s" })]
+        [TestCase(new object[] { "-e", "-e" })]
+        [TestCase(new object[] { "--exit", "-e" })]
+        [TestCase(new object[] { "-exit" })]
+        [TestCase(new object[] { "--e" })]
         public void GetCommand_NotCommands(object[] argsObj)
         {
             // Arrange
             var args = argsObj.ToStringArray();
 
             // Act
-            var result = _helpArgumentProcessor.GetCommand(args);
+            var result = _exitArgumentProcessor.GetCommand(args);
 
             // Assert
             Assert.IsInstanceOf<NotCommand>(result);
         }
 
         [Test]
-        [TestCase(new object[] { "-h" })]
-        [TestCase(new object[] { "-?" })]
-        [TestCase(new object[] { "--help" })]
+        [TestCase(new object[] { "-e" })]
+        [TestCase(new object[] { "--exit" })]
         public void GetCommand(object[] argsObj)
         {
             // Arrange
             var args = argsObj.ToStringArray();
 
             // Act
-            var result = _helpArgumentProcessor.GetCommand(args);
+            var result = _exitArgumentProcessor.GetCommand(args);
 
             // Assert
-            Assert.IsInstanceOf<HelpCommand>(result);
+            Assert.IsInstanceOf<ExitCommand>(result);
         }
     }
 }

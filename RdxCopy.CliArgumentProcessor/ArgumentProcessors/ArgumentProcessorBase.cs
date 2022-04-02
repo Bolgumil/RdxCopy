@@ -1,6 +1,6 @@
-﻿using CliArgumentProcessor.Commands;
+﻿using RdxCopy.Commands;
 
-namespace CliArgumentProcessor.ArgumentProcessors
+namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
 {
     public abstract class ArgumentProcessorBase
     {

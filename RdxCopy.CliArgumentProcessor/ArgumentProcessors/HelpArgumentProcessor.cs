@@ -1,7 +1,6 @@
-﻿using CliArgumentProcessor.Commands;
-using System.Linq;
+﻿using RdxCopy.Commands;
 
-namespace CliArgumentProcessor.ArgumentProcessors
+namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
 {
     public class HelpArgumentProcessor : ArgumentProcessorBase
     {

@@ -1,10 +1,8 @@
-﻿using CliArgumentProcessor.ArgumentProcessors;
-using CliArgumentProcessor.Commands;
-using NUnit.Framework;
-using System.Collections.Generic;
-using TestHelper;
+﻿using NUnit.Framework;
+using RdxCopy.Commands;
+using RdxCopy.TestHelper;
 
-namespace CliArgumentProcessor.Tests
+namespace RdxCopy.CliArgumentProcessor.Tests
 {
     public class ArgumentProcessorTests
     {

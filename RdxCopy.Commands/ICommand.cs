@@ -1,4 +1,4 @@
-﻿namespace CliArgumentProcessor.Commands
+﻿namespace RdxCopy.Commands
 {
     public interface ICommand
     {
