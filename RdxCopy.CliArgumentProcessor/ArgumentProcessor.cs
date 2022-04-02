@@ -13,7 +13,7 @@ namespace RdxCopy.CliArgumentProcessor
         /// </summary>
         private readonly List<ArgumentProcessorBase> _argumentProcessors;
 
-        public IReadOnlyCollection<ArgumentProcessorBase> ArgumentProcessors { get => _argumentProcessors.AsReadOnly(); }
+        public IReadOnlyCollection<ArgumentProcessorBase> Processors { get => _argumentProcessors.AsReadOnly(); }
 
         /// <summary>
         /// Setup the basic processors (Copy folder, exit, help).

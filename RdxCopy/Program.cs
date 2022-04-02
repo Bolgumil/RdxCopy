@@ -1,24 +1,20 @@
-﻿Console.WriteLine("Copy folder command");
+﻿using RdxCopy;
+using RdxCopy.CommandManager;
 
+Console.WriteLine("Welcome to RdxCopy!");
+Console.SetOut(new PrefixedWriter());
 
-//var argumentProcessor = new ArgumentProcessor();
+var commandManager = new CommandManager();
 
-//switch (argumentProcessor.ProcessArguments(args))
-//{
-//    case CopyFolderCommand copyFolder:
-//        Console.WriteLine("Copy folder command");
-//        break;
-//    case ExitCommand exit:
-//        Console.WriteLine("Exit command");
-//        break;
-//    case HelpCommand help:
-//        Console.WriteLine("Help command");
-//        break;
-//    case ArgumentErrorCommand argumentError:
-//        Console.WriteLine($"error: {argumentError.ErrorCode}");
-//        break;
-//    case NotCommand help:
-//    default:
-//        Console.WriteLine("No such command found");
-//        break;
-//}
+if (args != null && args.Length > 0)
+{
+    commandManager.ProcessInput(args);
+}
+
+do
+{
+    Console.WriteLine("Waiting for next input...");
+    Console.Write(string.Empty);
+    args = Console.ReadLine().Split(' ');
+} while (commandManager.ProcessInput(args));
+

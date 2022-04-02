@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.TestHelper", "RdxCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CliArgumentProcessor.Tests", "RdxCopy.CliArgumentProcessor.Tests\RdxCopy.CliArgumentProcessor.Tests.csproj", "{A94713BB-61E2-4376-801A-935489FB4DDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CommandManager", "RdxCopy.CommandManager\RdxCopy.CommandManager.csproj", "{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{A94713BB-61E2-4376-801A-935489FB4DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A94713BB-61E2-4376-801A-935489FB4DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A94713BB-61E2-4376-801A-935489FB4DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

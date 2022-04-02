@@ -32,7 +32,10 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
 
         public override string GetHelpText()
         {
-            return "exit help";
+            return
+                "To exit the program:" + Environment.NewLine +
+                "  -e: Exit the program." + Environment.NewLine +
+                "      Alias: --exit";
         }
 
         private ICommand ExitCommandResult()

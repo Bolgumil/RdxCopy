@@ -32,7 +32,11 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
 
         public override string GetHelpText()
         {
-            return "help help";
+            return
+                "To get help about valid arguments:" + Environment.NewLine +
+                "  -h: Provides help about arguments." + Environment.NewLine +
+                "      Alias: -?" + Environment.NewLine +
+                "             --help";
         }
 
         private ICommand HelpCommandResult()

@@ -8,4 +8,8 @@
 		<PublishSingleFile>true</PublishSingleFile>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\RdxCopy.CommandManager\RdxCopy.CommandManager.csproj" />
+	</ItemGroup>
+
 </Project>
