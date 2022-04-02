@@ -4,7 +4,12 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
 {
     public abstract class ArgumentProcessorBase
     {
+        /// <returns>Help text that provides information about the parameters and usage of the concrete ArgumentProcessor</returns>
         public abstract string GetHelpText();
+        /// <summary>
+        /// Gets an <see cref="ICommand"/> based on the concrete ArgumentProcessor's implementation
+        /// </summary>
+        /// <param name="args">Input arguments</param>
         public abstract ICommand GetCommand(string[] args);
 
         protected abstract int NumberOfArgumentsRequired { get; }
