@@ -9,7 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\RdxCopy.CommandManager\RdxCopy.CommandManager.csproj" />
+	  <ProjectReference Include="..\RdxCopy.InputProcessor\RdxCopy.InputProcessor.csproj" />
 	  <ProjectReference Include="..\StringToArgsConverter\StringToArgsConverter.csproj" />
 	</ItemGroup>
 

@@ -15,14 +15,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.TestHelper", "RdxCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CliArgumentProcessor.Tests", "RdxCopy.CliArgumentProcessor.Tests\RdxCopy.CliArgumentProcessor.Tests.csproj", "{A94713BB-61E2-4376-801A-935489FB4DDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CommandManager", "RdxCopy.CommandManager\RdxCopy.CommandManager.csproj", "{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringToArgsConverter", "StringToArgsConverter\StringToArgsConverter.csproj", "{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringToArgsConverter.Tests", "StringToArgsConverter.Tests\StringToArgsConverter.Tests.csproj", "{129A2D0D-3273-4DFF-9A80-75B51A1562AC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D} = {B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.InputProcessor", "RdxCopy.InputProcessor\RdxCopy.InputProcessor.csproj", "{509AE97A-F1C4-4670-B9C4-DAFEB881DF4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CopyManager", "RdxCopy.CopyManager\RdxCopy.CopyManager.csproj", "{0BEFC675-2867-469B-8F5E-F691F15A0ACE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,10 +52,6 @@ Global
 		{A94713BB-61E2-4376-801A-935489FB4DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A94713BB-61E2-4376-801A-935489FB4DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A94713BB-61E2-4376-801A-935489FB4DDA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,6 +60,14 @@ Global
 		{129A2D0D-3273-4DFF-9A80-75B51A1562AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{129A2D0D-3273-4DFF-9A80-75B51A1562AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{129A2D0D-3273-4DFF-9A80-75B51A1562AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509AE97A-F1C4-4670-B9C4-DAFEB881DF4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509AE97A-F1C4-4670-B9C4-DAFEB881DF4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509AE97A-F1C4-4670-B9C4-DAFEB881DF4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509AE97A-F1C4-4670-B9C4-DAFEB881DF4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BEFC675-2867-469B-8F5E-F691F15A0ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BEFC675-2867-469B-8F5E-F691F15A0ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BEFC675-2867-469B-8F5E-F691F15A0ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BEFC675-2867-469B-8F5E-F691F15A0ACE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

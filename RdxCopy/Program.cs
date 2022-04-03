@@ -1,15 +1,15 @@
 ﻿using RdxCopy;
-using RdxCopy.CommandManager;
+using RdxCopy.InputProcessor;
 using StringToArgsConverter;
 
 Console.WriteLine("Welcome to RdxCopy!");
 Console.SetOut(new PrefixedWriter());
 
-var commandManager = new CommandManager();
+var inputProcessor = new InputProcessor();
 
 if (args != null && args.Length > 0)
 {
-    commandManager.ProcessInput(args);
+    inputProcessor.ProcessInput(args);
 }
 
 do
@@ -17,4 +17,4 @@ do
     Console.WriteLine("Waiting for next input...");
     Console.Write(string.Empty);
     args = Console.ReadLine().ToArgs();
-} while (commandManager.ProcessInput(args));
+} while (inputProcessor.ProcessInput(args));
