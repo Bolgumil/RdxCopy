@@ -6,6 +6,7 @@ namespace StringToArgsConverter.Tests
     public class Tests
     {
         [Test]
+        [TestCase("", new object[] { })]
         [TestCase("-x", new object[] { "-x" })]
         [TestCase("-x -y", new object[] { "-x", "-y" })]
         [TestCase("-x               -y", new object[] { "-x", "-y" })]

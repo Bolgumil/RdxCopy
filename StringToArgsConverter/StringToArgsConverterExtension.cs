@@ -9,6 +9,8 @@
         /// <returns>Args</returns>
         public static string[] ToArgs(this string argsRaw)
         {
+            if (argsRaw == string.Empty) return new string[0];
+
             char[] parmChars = argsRaw.Trim().ToCharArray();
             bool inDoubleQuote = false;
             bool escaped = false;

@@ -24,7 +24,9 @@ namespace RdxCopy.CliArgumentProcessor
             {
                 new CopyFolderArgumentProcessor(),
                 new ExitArgumentProcessor(),
-                new HelpArgumentProcessor()
+                new HelpArgumentProcessor(),
+                new ClearArgumentProcessor(),
+                new EmptyArgumentProcessor()
             };
         }
 
