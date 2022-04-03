@@ -17,6 +17,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CliArgumentProcesso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CommandManager", "RdxCopy.CommandManager\RdxCopy.CommandManager.csproj", "{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringToArgsConverter", "StringToArgsConverter\StringToArgsConverter.csproj", "{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringToArgsConverter.Tests", "StringToArgsConverter.Tests\StringToArgsConverter.Tests.csproj", "{129A2D0D-3273-4DFF-9A80-75B51A1562AC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D} = {B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +54,14 @@ Global
 		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC6F316F-BBFB-41E9-88AC-A7AD1164D39B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{129A2D0D-3273-4DFF-9A80-75B51A1562AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{129A2D0D-3273-4DFF-9A80-75B51A1562AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{129A2D0D-3273-4DFF-9A80-75B51A1562AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{129A2D0D-3273-4DFF-9A80-75B51A1562AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +69,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{90EB3C9E-4E64-493A-8D01-3EA18E5A798F} = {9411C942-A222-49B1-AE9E-617520C2FC10}
 		{A94713BB-61E2-4376-801A-935489FB4DDA} = {9411C942-A222-49B1-AE9E-617520C2FC10}
+		{129A2D0D-3273-4DFF-9A80-75B51A1562AC} = {9411C942-A222-49B1-AE9E-617520C2FC10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C072A206-5A92-40AB-B6EE-804049455FB7}

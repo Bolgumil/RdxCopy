@@ -34,7 +34,7 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
         {
             return
                 "To exit the program:" + Environment.NewLine +
-                "  -e: Exit the program." + Environment.NewLine +
+                "  -e: Exits the program." + Environment.NewLine +
                 "      Alias: --exit";
         }
 

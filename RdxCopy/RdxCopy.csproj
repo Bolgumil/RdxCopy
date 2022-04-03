@@ -10,6 +10,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\RdxCopy.CommandManager\RdxCopy.CommandManager.csproj" />
+	  <ProjectReference Include="..\StringToArgsConverter\StringToArgsConverter.csproj" />
 	</ItemGroup>
 
 </Project>
