@@ -9,7 +9,7 @@ namespace RdxCopy.CliArgumentProcessor.Tests
         [TearDown]
         public static void Cleanup()
         {
-            TestFolderManager.DeleteTestFolders();
+            TestResourceManager.DeleteDefaultTestFolders();
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace RdxCopy.CliArgumentProcessor.Tests
         public void ProcessArguments_DefaultCtor_CopyFolderCommand(object[] argsObj)
         {
             // Arrange
-            TestFolderManager.CreateTestFolders();
+            TestResourceManager.CreateDefaultTestDirectories();
             var argumentProcessor = new ArgumentProcessor();
             var args = argsObj.ToStringArray();
 

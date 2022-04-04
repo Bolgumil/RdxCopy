@@ -13,13 +13,13 @@ namespace RdxCopy.CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
         public static void Init()
         {
             _copyFolderArgumentProcessor = new CopyFolderArgumentProcessor();
-            TestFolderManager.CreateTestFolders();
+            TestResourceManager.CreateDefaultTestDirectories();
         }
 
         [OneTimeTearDown]
         public static void Cleanup()
         {
-            TestFolderManager.DeleteTestFolders();
+            TestResourceManager.DeleteDefaultTestFolders();
         }
 
         [Test]
@@ -55,8 +55,8 @@ namespace RdxCopy.CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
         [TestCase(new object[] { "-s", ".\\" })]
         [TestCase(new object[] { "-s", ".\\", "-d" })]
         [TestCase(new object[] { "-d", ".\\", "-x", "-s", ".\\" })]
-        [TestCase(new object[] { "-destination", ".\\dest", "-source", ".\\src" })]
-        [TestCase(new object[] { "--s", ".\\src", "--d", ".\\dest" })]
+        [TestCase(new object[] { "-destination", TestResourceManager.DefaultDestinationDirectory, "-source", TestResourceManager.DefaultSourceDirectory })]
+        [TestCase(new object[] { "--s", TestResourceManager.DefaultSourceDirectory, "--d", TestResourceManager.DefaultDestinationDirectory })]
         public void GetCommand_NotCommands(object[] argsObj)
         {
             // Arrange
@@ -90,11 +90,11 @@ namespace RdxCopy.CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
         }
 
         [Test]
-        [TestCase(new object[] { "-s", ".\\src", "-d", ".\\dest" }, "invalid_source_path")]
+        [TestCase(new object[] { "-s", TestResourceManager.DefaultSourceDirectory, "-d", TestResourceManager.DefaultDestinationDirectory }, "invalid_source_path")]
         public void GetCommand_ArgumentErrors_PathDoesNotExist(object[] argsObj, string errorCode)
         {
             // Arrange
-            TestFolderManager.DeleteTestFolders();
+            TestResourceManager.DeleteDefaultTestFolders();
             var args = argsObj.ToStringArray();
 
             // Act
@@ -106,14 +106,14 @@ namespace RdxCopy.CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
             Assert.AreEqual(errorCode, aec.ErrorCode);
 
             // Cleanup
-            TestFolderManager.CreateTestFolders();
+            TestResourceManager.CreateDefaultTestDirectories();
         }
 
         [Test]
-        [TestCase(new object[] { "-s", ".\\src", "-d", ".\\dest" })]
-        [TestCase(new object[] { "-d", ".\\dest", "-s", ".\\src" })]
-        [TestCase(new object[] { "--dest", ".\\dest", "--src", ".\\src" })]
-        [TestCase(new object[] { "--destination", ".\\dest", "--source", ".\\src" })]
+        [TestCase(new object[] { "-s", TestResourceManager.DefaultSourceDirectory, "-d", TestResourceManager.DefaultDestinationDirectory })]
+        [TestCase(new object[] { "-d", TestResourceManager.DefaultDestinationDirectory, "-s", TestResourceManager.DefaultSourceDirectory })]
+        [TestCase(new object[] { "--dest", TestResourceManager.DefaultDestinationDirectory, "--src", TestResourceManager.DefaultSourceDirectory })]
+        [TestCase(new object[] { "--destination", TestResourceManager.DefaultDestinationDirectory, "--source", TestResourceManager.DefaultSourceDirectory })]
         public void GetCommand(object[] argsObj)
         {
             // Arrange
@@ -125,8 +125,8 @@ namespace RdxCopy.CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
             // Assert
             Assert.IsInstanceOf<CopyFolderCommand>(result);
             var cfc = result as CopyFolderCommand;
-            Assert.AreEqual(".\\dest", cfc.Destination);
-            Assert.AreEqual(".\\src", cfc.Source);
+            Assert.AreEqual(TestResourceManager.DefaultDestinationDirectory, cfc.Destination);
+            Assert.AreEqual(TestResourceManager.DefaultSourceDirectory, cfc.Source);
         }
     }
 }

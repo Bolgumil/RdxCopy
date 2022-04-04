@@ -7,24 +7,26 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdxCopy", "RdxCopy\RdxCopy.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9411C942-A222-49B1-AE9E-617520C2FC10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.Commands", "RdxCopy.Commands\RdxCopy.Commands.csproj", "{A5310EC8-4F8C-4F55-81D1-C2F81FB45791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdxCopy.Commands", "RdxCopy.Commands\RdxCopy.Commands.csproj", "{A5310EC8-4F8C-4F55-81D1-C2F81FB45791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CliArgumentProcessor", "RdxCopy.CliArgumentProcessor\RdxCopy.CliArgumentProcessor.csproj", "{8FD08257-D1D0-4CB2-B6F2-E9C181567B3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdxCopy.CliArgumentProcessor", "RdxCopy.CliArgumentProcessor\RdxCopy.CliArgumentProcessor.csproj", "{8FD08257-D1D0-4CB2-B6F2-E9C181567B3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.TestHelper", "RdxCopy.TestHelper\RdxCopy.TestHelper.csproj", "{90EB3C9E-4E64-493A-8D01-3EA18E5A798F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdxCopy.TestHelper", "RdxCopy.TestHelper\RdxCopy.TestHelper.csproj", "{90EB3C9E-4E64-493A-8D01-3EA18E5A798F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CliArgumentProcessor.Tests", "RdxCopy.CliArgumentProcessor.Tests\RdxCopy.CliArgumentProcessor.Tests.csproj", "{A94713BB-61E2-4376-801A-935489FB4DDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdxCopy.CliArgumentProcessor.Tests", "RdxCopy.CliArgumentProcessor.Tests\RdxCopy.CliArgumentProcessor.Tests.csproj", "{A94713BB-61E2-4376-801A-935489FB4DDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringToArgsConverter", "StringToArgsConverter\StringToArgsConverter.csproj", "{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringToArgsConverter", "StringToArgsConverter\StringToArgsConverter.csproj", "{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringToArgsConverter.Tests", "StringToArgsConverter.Tests\StringToArgsConverter.Tests.csproj", "{129A2D0D-3273-4DFF-9A80-75B51A1562AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringToArgsConverter.Tests", "StringToArgsConverter.Tests\StringToArgsConverter.Tests.csproj", "{129A2D0D-3273-4DFF-9A80-75B51A1562AC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D} = {B896C45A-B1FD-4D59-A08B-B2DAA0B3D63D}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.InputProcessor", "RdxCopy.InputProcessor\RdxCopy.InputProcessor.csproj", "{509AE97A-F1C4-4670-B9C4-DAFEB881DF4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdxCopy.InputProcessor", "RdxCopy.InputProcessor\RdxCopy.InputProcessor.csproj", "{509AE97A-F1C4-4670-B9C4-DAFEB881DF4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CopyManager", "RdxCopy.CopyManager\RdxCopy.CopyManager.csproj", "{0BEFC675-2867-469B-8F5E-F691F15A0ACE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdxCopy.CopyManager", "RdxCopy.CopyManager\RdxCopy.CopyManager.csproj", "{0BEFC675-2867-469B-8F5E-F691F15A0ACE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdxCopy.CopyManager.Tests", "RdxCopy.CopyManager.Tests\RdxCopy.CopyManager.Tests.csproj", "{10E6CB92-1822-4CB9-9FFE-DB85B5157860}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +70,10 @@ Global
 		{0BEFC675-2867-469B-8F5E-F691F15A0ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BEFC675-2867-469B-8F5E-F691F15A0ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BEFC675-2867-469B-8F5E-F691F15A0ACE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10E6CB92-1822-4CB9-9FFE-DB85B5157860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E6CB92-1822-4CB9-9FFE-DB85B5157860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E6CB92-1822-4CB9-9FFE-DB85B5157860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E6CB92-1822-4CB9-9FFE-DB85B5157860}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{90EB3C9E-4E64-493A-8D01-3EA18E5A798F} = {9411C942-A222-49B1-AE9E-617520C2FC10}
 		{A94713BB-61E2-4376-801A-935489FB4DDA} = {9411C942-A222-49B1-AE9E-617520C2FC10}
 		{129A2D0D-3273-4DFF-9A80-75B51A1562AC} = {9411C942-A222-49B1-AE9E-617520C2FC10}
+		{10E6CB92-1822-4CB9-9FFE-DB85B5157860} = {9411C942-A222-49B1-AE9E-617520C2FC10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C072A206-5A92-40AB-B6EE-804049455FB7}

@@ -74,9 +74,11 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
             return 
                 "To copy a folder:" + Environment.NewLine +
                 "  -s <soure directory path>: The source directoy that will be copied to the destination." + Environment.NewLine +
+                "                             Must be valid and existing directory." + Environment.NewLine +
                 "                             Alias: --src" + Environment.NewLine +
                 "                                    --source" + Environment.NewLine +
                 "  -d <destination directory path>: The destination directory where the source will be copied." + Environment.NewLine +
+                "                                   Must be valid and existing directory." + Environment.NewLine +
                 "                                   Alias: --dest" + Environment.NewLine +
                 "                                          --destination";
         }
