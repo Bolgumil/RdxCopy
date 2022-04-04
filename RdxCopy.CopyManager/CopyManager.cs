@@ -1,24 +1,35 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Concurrent;
 
 namespace RdxCopy.CopyManager
 {
     public class CopyManager
     {
+        private ConcurrentDictionary<(string src, string dest), byte> _copyRepository;
+
         public CopyManager()
         {
-
+            _copyRepository = new ConcurrentDictionary<(string src, string dest), byte>();
         }
 
         public Task StartCopy(string src, string dest, bool replace, bool recurse)
         {
+            var srcDestTuple = (src, dest);
+            if (_copyRepository.ContainsKey(srcDestTuple))
+            {
+                Console.WriteLine($"Copy already in progress from {src} to {dest}!");
+                Console.WriteLine(string.Empty);
+                return Task.CompletedTask;
+            }
+
+            _copyRepository.TryAdd(srcDestTuple, 0);
+            var copyTask = CopyDirectory(src, dest, replace, recurse);
+            copyTask.ContinueWith(t => OnCopyTaskSuccess(t, srcDestTuple) , TaskContinuationOptions.OnlyOnRanToCompletion);
+            copyTask.ContinueWith(t => OnCopyTaskError(t, srcDestTuple), TaskContinuationOptions.OnlyOnFaulted);
+
             Console.WriteLine($"Copying {src} to {dest} in the background...");
             Console.WriteLine(string.Empty);
-            return Task.Run(async () =>
-            {
-                await CopyDirectory(src, dest, replace, recurse);
-                Console.WriteLine($"{Environment.NewLine}Copy {src} to {dest} finished!");
-                Console.Write(string.Empty);
-            });
+
+            return copyTask;
         }
 
         /// <summary>
@@ -41,9 +52,9 @@ namespace RdxCopy.CopyManager
             var copyTasks = new List<Task>();
             foreach (var files in filesPerExtension.Values)
             {
-                copyTasks.Add(Task.Run(() => {
-                    CopyFilesSequentially(src, dest, replace, files);
-                }));
+                var copyTask = new Task(() => CopyFilesSequentially(src, dest, replace, files));
+                copyTask.Start();
+                copyTasks.Add(copyTask);
             }
 
             return Task.WhenAll(copyTasks);
@@ -99,6 +110,24 @@ namespace RdxCopy.CopyManager
 
                 file.CopyTo(fileFullPath);
             }
+        }
+
+        private void OnCopyTaskSuccess(Task t, (string src, string dest) srcDestTuple)
+        {
+            _copyRepository.TryRemove(srcDestTuple, out _);
+            Console.WriteLine($"{Environment.NewLine}Copy {srcDestTuple.src} to {srcDestTuple.dest} finished!");
+            Console.Write(string.Empty);
+        }
+
+        private void OnCopyTaskError(Task t, (string src, string dest) srcDestTuple)
+        {
+            _copyRepository.TryRemove(srcDestTuple, out _);
+            Console.WriteLine($"{Environment.NewLine}Copy {srcDestTuple.src} to {srcDestTuple.dest} failed!");
+            foreach (var e in t.Exception.InnerExceptions)
+            {
+                Console.WriteLine($"{e.Message}");
+            }
+            Console.Write(string.Empty);
         }
     }
 }

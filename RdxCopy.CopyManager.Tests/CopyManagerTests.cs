@@ -38,7 +38,6 @@ namespace RdxCopy.CopyManager.Tests
             );
 
             // Assert
-            FileAssert.DoesNotExist(Path.Combine(TestResourceManager.DefaultDestinationDirectory, TestResourceManager.DefaultFileFullName));
             copyTask.Wait();
             Assert.IsTrue(copyTask.IsCompleted);
             FileAssert.Exists(Path.Combine(TestResourceManager.DefaultDestinationDirectory, TestResourceManager.DefaultFileFullName));
