@@ -9,13 +9,13 @@ namespace RdxCopy.CopyManager
 
         }
 
-        public Task StartCopy(string src, string dest)
+        public Task StartCopy(string src, string dest, bool replace, bool recurse)
         {
             Console.WriteLine($"Copying {src} to {dest} in the background...");
             Console.WriteLine(string.Empty);
             return Task.Run(async () =>
             {
-                await CopyDirectory(src, dest);
+                await CopyDirectory(src, dest, replace, recurse);
                 Console.WriteLine($"{Environment.NewLine}Copy {src} to {dest} finished!");
                 Console.Write(string.Empty);
             });
@@ -29,20 +29,20 @@ namespace RdxCopy.CopyManager
         /// <param name="dest">Destination folder</param>
         /// <param name="recursive">Copy files within subdirectories</param>
         /// <exception cref="DirectoryNotFoundException">Thrown when source directory not found.</exception>
-        public Task CopyDirectory(string src, string dest, bool recursive = true)
+        public Task CopyDirectory(string src, string dest, bool replace, bool recurse)
         {
             var srcDir = new DirectoryInfo(src);
 
             if (!srcDir.Exists)
                 throw new DirectoryNotFoundException($"Source directory not found: {srcDir.FullName}");
 
-            var filesPerExtension = DiscoverDirectory(src, recursive);
+            var filesPerExtension = DiscoverDirectory(src, recurse);
             
             var copyTasks = new List<Task>();
             foreach (var files in filesPerExtension.Values)
             {
                 copyTasks.Add(Task.Run(() => {
-                    CopyFilesSequentially(src, dest, files);
+                    CopyFilesSequentially(src, dest, replace, files);
                 }));
             }
 
@@ -83,13 +83,21 @@ namespace RdxCopy.CopyManager
             return result;
         }
 
-        public void CopyFilesSequentially(string src, string dest, List<FileInfo> files)
+        public void CopyFilesSequentially(string src, string dest, bool replace, List<FileInfo> files)
         {
             foreach (var file in files)
             {
                 var targetDirectory = file.DirectoryName.Replace(Path.GetFullPath(src), Path.GetFullPath(dest));
                 Directory.CreateDirectory(targetDirectory);
-                file.CopyTo(Path.Combine(targetDirectory, file.Name));
+                var fileFullPath = Path.Combine(targetDirectory, file.Name);
+
+                if (File.Exists(fileFullPath))
+                {
+                    if (replace) File.Delete(fileFullPath);
+                    else continue;
+                }
+
+                file.CopyTo(fileFullPath);
             }
         }
     }

@@ -9,7 +9,7 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
     {
         private string[] helpFlags = { "-h", "--help", "-?" };
         
-        protected override int NumberOfArgumentsRequired => 1;
+        protected override int MinNumberOfArgumentsRequired => 1;
 
         /// <summary>
         /// Converts the incoming help argument to a <see cref="HelpCommand"/>

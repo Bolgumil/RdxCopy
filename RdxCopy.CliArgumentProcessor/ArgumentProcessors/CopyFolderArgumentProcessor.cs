@@ -10,8 +10,11 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
     {
         private string[] sourceFlags = { "-s", "--src", "--source" };
         private string[] destinationFlags = { "-d", "--dest", "--destination" };
+        private string[] replaceFlags = { "-o", "--override" };
+        private string[] recurseFlags = { "-r", "--recurse" };
 
-        protected override int NumberOfArgumentsRequired => 4;
+        protected override int MinNumberOfArgumentsRequired => 4;
+        protected override int? MaxNumberOfArgumentsRequired => 6;
 
         /// <summary>
         /// Converts the incoming source and destination flags to a <see cref="CopyFolderCommand"/>
@@ -33,6 +36,8 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
 
             var src = string.Empty;
             var dest = string.Empty;
+            var recurse = false;
+            var replace = false;
 
             for (var i = 0; i < args.Length; i++)
             {
@@ -58,6 +63,18 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
 
                     return ArgumentErrorCommandResult("invalid_destination_path");
                 }
+                else if (recurseFlags.Any(rf => rf == args[i]))
+                {
+                    recurse = true;
+                }
+                else if (replaceFlags.Any(rf => rf == args[i]))
+                {
+                    replace = true;
+                }
+                else
+                {
+                    return NotCommandResult();
+                }
             }
 
             return (string.IsNullOrEmpty(src), string.IsNullOrEmpty(dest)) switch
@@ -65,14 +82,14 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
                 (true, true) => NotCommandResult(),
                 (true, false) => ArgumentErrorCommandResult("source_required"),
                 (false, true) => ArgumentErrorCommandResult("destination_required"),
-                (false, false) => CopyFolderCommandResult(src, dest)
+                (false, false) => CopyFolderCommandResult(src, dest, replace, recurse)
             };
         }
 
         public override string GetHelpText()
         {
             return 
-                "To copy a folder:" + Environment.NewLine +
+                "To copy a directory and files within it:" + Environment.NewLine +
                 "  -s <soure directory path>: The source directoy that will be copied to the destination." + Environment.NewLine +
                 "                             Must be valid and existing directory." + Environment.NewLine +
                 "                             Alias: --src" + Environment.NewLine +
@@ -80,7 +97,15 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
                 "  -d <destination directory path>: The destination directory where the source will be copied." + Environment.NewLine +
                 "                                   Must be valid and existing directory." + Environment.NewLine +
                 "                                   Alias: --dest" + Environment.NewLine +
-                "                                          --destination";
+                "                                          --destination" + Environment.NewLine +
+                "  [-r]: If set, the source directoy will be recursively looked for files within all nested directories." + Environment.NewLine +
+                "        If not set, only the files within the root of the source direcoty will be copied." + Environment.NewLine +
+                "        Optional parameter, default value: false." + Environment.NewLine +
+                "        Alias: --recurse" + Environment.NewLine +
+                "  [-o]: If set, the destination directory already contains one of the files, the file will be overwritten." + Environment.NewLine +
+                "        If not set, the file copy will be skipped and the original file remains." + Environment.NewLine +
+                "        Optional parameter, default value: false." + Environment.NewLine +
+                "        Alias: --override" + Environment.NewLine;
         }
 
         private bool CheckIfNextArgIsDirectory(string[] args, int i)
@@ -88,9 +113,9 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
             return args.Length >= i + 2 && Directory.Exists(args[i + 1]);
         }
 
-        private ICommand CopyFolderCommandResult(string src, string dest)
+        private ICommand CopyFolderCommandResult(string src, string dest, bool replace, bool recurse)
         {
-            return new CopyFolderCommand(src, dest);
+            return new CopyFolderCommand(src, dest, replace, recurse);
         }
     }
 }

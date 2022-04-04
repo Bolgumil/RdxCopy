@@ -9,7 +9,7 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
     {
         private string[] clearFlags = { "-c", "--clear" };
 
-        protected override int NumberOfArgumentsRequired => 1;
+        protected override int MinNumberOfArgumentsRequired => 1;
 
         /// <summary>
         /// Converts the incoming clear argument to a <see cref="ClearCommand"/>

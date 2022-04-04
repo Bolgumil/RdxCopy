@@ -7,7 +7,7 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
     /// </summary>
     public class EmptyArgumentProcessor : ArgumentProcessorBase
     {
-        protected override int NumberOfArgumentsRequired => 0;
+        protected override int MinNumberOfArgumentsRequired => 0;
 
         /// <summary>
         /// Converts the incoming empty argument array to an <see cref="EmptyCommand"/>

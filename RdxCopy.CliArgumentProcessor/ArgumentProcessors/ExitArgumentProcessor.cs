@@ -9,7 +9,7 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
     {
         private string[] exitFlags = { "-e", "--exit" };
 
-        protected override int NumberOfArgumentsRequired => 1;
+        protected override int MinNumberOfArgumentsRequired => 1;
 
         /// <summary>
         /// Converts the incoming exit argument to a <see cref="ExitCommand"/>

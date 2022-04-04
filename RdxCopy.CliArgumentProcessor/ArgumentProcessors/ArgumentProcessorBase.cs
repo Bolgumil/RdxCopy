@@ -12,7 +12,8 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
         /// <param name="args">Input arguments</param>
         public abstract ICommand GetCommand(string[] args);
 
-        protected abstract int NumberOfArgumentsRequired { get; }
+        protected abstract int MinNumberOfArgumentsRequired { get; }
+        protected virtual int? MaxNumberOfArgumentsRequired { get; } = null;
 
         protected ICommand ArgumentErrorCommandResult(string errorCode)
         {
@@ -26,7 +27,9 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
 
         protected bool ValidArgumentCount(string[] args)
         {
-            return args != null && args.Length == NumberOfArgumentsRequired;
+            return args != null && 
+                ((args.Length == MinNumberOfArgumentsRequired && MaxNumberOfArgumentsRequired == null) ||
+                (args.Length >= MinNumberOfArgumentsRequired && args.Length <= MaxNumberOfArgumentsRequired));
         }
     }
 }

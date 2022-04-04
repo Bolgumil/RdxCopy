@@ -51,10 +51,16 @@ namespace RdxCopy.CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
         [Test]
         [TestCase(new object[] { "" })]
         [TestCase(new object[] { "-s" })]
+        [TestCase(new object[] { "-o" })]
+        [TestCase(new object[] { "-r" })]
+        [TestCase(new object[] { "-r", "-o" })]
+        [TestCase(new object[] { "-s", "test" })]
+        [TestCase(new object[] { "-s", "test" })]
         [TestCase(new object[] { "-s", "test" })]
         [TestCase(new object[] { "-s", ".\\" })]
         [TestCase(new object[] { "-s", ".\\", "-d" })]
         [TestCase(new object[] { "-d", ".\\", "-x", "-s", ".\\" })]
+        [TestCase(new object[] { "-x", ".\\", "-s", ".\\" })]
         [TestCase(new object[] { "-destination", TestResourceManager.DefaultDestinationDirectory, "-source", TestResourceManager.DefaultSourceDirectory })]
         [TestCase(new object[] { "--s", TestResourceManager.DefaultSourceDirectory, "--d", TestResourceManager.DefaultDestinationDirectory })]
         public void GetCommand_NotCommands(object[] argsObj)
@@ -73,8 +79,8 @@ namespace RdxCopy.CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
         [TestCase(new object[] { "-s", ".\\", "-d", "test" }, "invalid_destination_path")]
         [TestCase(new object[] { "-d", ".\\", "-s", "test" }, "invalid_source_path")]
         [TestCase(new object[] { "-d", ".\\", "-s", ".\\nonexistentfolder" }, "invalid_source_path")]
-        [TestCase(new object[] { "-d", ".\\", "-x", ".\\" }, "source_required")]
-        [TestCase(new object[] { "-x", ".\\", "-s", ".\\" }, "destination_required")]
+        [TestCase(new object[] { "-s", "-o", "-s", ".\\" }, "invalid_source_path")]
+        [TestCase(new object[] { "-s", ".\\", "-d", "-r" }, "invalid_destination_path")]
         public void GetCommand_ArgumentErrors(object[] argsObj, string errorCode)
         {
             // Arrange
@@ -127,6 +133,31 @@ namespace RdxCopy.CliArgumentProcessor.Tests.ConcreteArgumentProcessorTests
             var cfc = result as CopyFolderCommand;
             Assert.AreEqual(TestResourceManager.DefaultDestinationDirectory, cfc.Destination);
             Assert.AreEqual(TestResourceManager.DefaultSourceDirectory, cfc.Source);
+        }
+
+        [Test]
+        [TestCase(new object[] { "-s", TestResourceManager.DefaultSourceDirectory, "-d", TestResourceManager.DefaultDestinationDirectory }, false, false)]
+        [TestCase(new object[] { "-s", TestResourceManager.DefaultSourceDirectory, "-d", TestResourceManager.DefaultDestinationDirectory, "-o" }, false, true)]
+        [TestCase(new object[] { "-s", TestResourceManager.DefaultSourceDirectory, "-d", TestResourceManager.DefaultDestinationDirectory, "--override" }, false, true)]
+        [TestCase(new object[] { "-s", TestResourceManager.DefaultSourceDirectory, "-d", TestResourceManager.DefaultDestinationDirectory, "-r" }, true, false)]
+        [TestCase(new object[] { "-s", TestResourceManager.DefaultSourceDirectory, "-d", TestResourceManager.DefaultDestinationDirectory, "--recurse" }, true, false)]
+        [TestCase(new object[] { "-r", "-s", TestResourceManager.DefaultSourceDirectory, "-d", TestResourceManager.DefaultDestinationDirectory, "-o" }, true, true)]
+        [TestCase(new object[] { "-s", TestResourceManager.DefaultSourceDirectory, "-r", "-d", TestResourceManager.DefaultDestinationDirectory, "-o" }, true, true)]
+        public void GetCommand_WithOptionalOperators(object[] argsObj, bool recurse, bool replace)
+        {
+            // Arrange
+            var args = argsObj.ToStringArray();
+
+            // Act
+            var result = _copyFolderArgumentProcessor.GetCommand(args);
+
+            // Assert
+            Assert.IsInstanceOf<CopyFolderCommand>(result);
+            var cfc = result as CopyFolderCommand;
+            Assert.AreEqual(TestResourceManager.DefaultDestinationDirectory, cfc.Destination);
+            Assert.AreEqual(TestResourceManager.DefaultSourceDirectory, cfc.Source);
+            Assert.AreEqual(recurse, cfc.Recurse);
+            Assert.AreEqual(replace, cfc.Replace);
         }
     }
 }

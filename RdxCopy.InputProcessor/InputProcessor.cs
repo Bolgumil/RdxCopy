@@ -20,7 +20,7 @@ namespace RdxCopy.InputProcessor
             switch (_argumentProcessor.ProcessArguments(args))
             {
                 case CopyFolderCommand copyFolder:
-                    return ProcessCopyCommand(copyFolder.Source, copyFolder.Destination);
+                    return ProcessCopyCommand(copyFolder);
                 case ExitCommand _:
                     return ProcessExitCommand();
                 case HelpCommand _:
@@ -37,9 +37,14 @@ namespace RdxCopy.InputProcessor
             }
         }
 
-        private bool ProcessCopyCommand(string src, string dest)
+        private bool ProcessCopyCommand(CopyFolderCommand copyFolderCommand)
         {
-            _copyManager.StartCopy(src, dest);
+            _copyManager.StartCopy(
+                copyFolderCommand.Source, 
+                copyFolderCommand.Destination,
+                copyFolderCommand.Replace,
+                copyFolderCommand.Recurse
+            );
             return WaitingForNextInout();
         }
 
