@@ -105,7 +105,7 @@ namespace RdxCopy.CliArgumentProcessor.ArgumentProcessors
                 "  [-o]: If set, the destination directory already contains one of the files, the file will be overwritten." + Environment.NewLine +
                 "        If not set, the file copy will be skipped and the original file remains." + Environment.NewLine +
                 "        Optional parameter, default value: false." + Environment.NewLine +
-                "        Alias: --override" + Environment.NewLine;
+                "        Alias: --override";
         }
 
         private bool CheckIfNextArgIsDirectory(string[] args, int i)
