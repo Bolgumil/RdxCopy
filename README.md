@@ -1,7 +1,14 @@
 # RdxCopy
 
 ## Running
-...
+1. Clone the project
+2. Open the project in your preferred IDE
+3. Restore NuGet packages
+4. Build the project
+5. Start the ~\RdxCopy\bin\[Debug || Release]\net6.0\RdxCopy.exe file either by double clicking it or from CLI
+   * CLI arguments are supported too
+
+
 
 ## Parameters
 ###To copy a directory and files within it:  
