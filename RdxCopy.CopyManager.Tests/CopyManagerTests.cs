@@ -140,17 +140,18 @@ namespace RdxCopy.CopyManager.Tests
         public void CopyFilesSequentially_SingleFile()
         {
             // Arrange
-            var files = _copyManager.DiscoverDirectory(TestResourceManager.DefaultSourceDirectory, true);
 
             // Act
-            _copyManager.CopyFilesSequentially(
+            var copyTask = _copyManager.StartCopy(
                 TestResourceManager.DefaultSourceDirectory,
                 TestResourceManager.DefaultDestinationDirectory,
                 false,
-                files[TestResourceManager.DefaultFileExtension]
+                true
             );
 
             // Assert
+            copyTask.Wait();
+            Assert.IsTrue(copyTask.IsCompleted);
             FileAssert.Exists(
                 Path.Combine(
                     TestResourceManager.DefaultDestinationDirectory,
@@ -165,7 +166,6 @@ namespace RdxCopy.CopyManager.Tests
         public void CopyFilesSequentially_SingleFile_ExistingDestination(bool recurse, string expectedFileContent)
         {
             // Arrange
-            var files = _copyManager.DiscoverDirectory(TestResourceManager.DefaultSourceDirectory, true);
             TestResourceManager.CreateFile(
                 Path.Combine(
                     TestResourceManager.DefaultDestinationDirectory,
@@ -181,14 +181,16 @@ namespace RdxCopy.CopyManager.Tests
             );
 
             // Act
-            _copyManager.CopyFilesSequentially(
+            var copyTask = _copyManager.StartCopy(
                 TestResourceManager.DefaultSourceDirectory,
                 TestResourceManager.DefaultDestinationDirectory,
                 recurse,
-                files[TestResourceManager.DefaultFileExtension]
+                true
             );
 
             // Assert
+            copyTask.Wait();
+            Assert.IsTrue(copyTask.IsCompleted);
             FileAssert.Exists(
                 Path.Combine(
                     TestResourceManager.DefaultDestinationDirectory,
@@ -218,17 +220,18 @@ namespace RdxCopy.CopyManager.Tests
                 (firstNestedFileFullName, nestedDirectory),
                 (secondNestedFileFullName, nestedDirectory),
             });
-            var files = _copyManager.DiscoverDirectory(TestResourceManager.DefaultSourceDirectory, true);
 
             // Act
-            _copyManager.CopyFilesSequentially(
+            var copyTask = _copyManager.StartCopy(
                 TestResourceManager.DefaultSourceDirectory,
                 TestResourceManager.DefaultDestinationDirectory,
                 false,
-                files[TestResourceManager.DefaultFileExtension]
+                true
             );
 
             // Assert
+            copyTask.Wait();
+            Assert.IsTrue(copyTask.IsCompleted);
             FileAssert.Exists(
                 Path.Combine(
                     TestResourceManager.DefaultDestinationDirectory,
@@ -267,14 +270,16 @@ namespace RdxCopy.CopyManager.Tests
             var files = _copyManager.DiscoverDirectory(TestResourceManager.DefaultSourceDirectory, true);
 
             // Act
-            _copyManager.CopyFilesSequentially(
+            var copyTask = _copyManager.StartCopy(
                 TestResourceManager.DefaultSourceDirectory,
                 TestResourceManager.DefaultDestinationDirectory,
                 false,
-                files[TestResourceManager.DefaultFileExtension]
+                true
             );
 
             // Assert
+            copyTask.Wait();
+            Assert.IsTrue(copyTask.IsCompleted);
             FileAssert.Exists(
                 Path.Combine(
                     TestResourceManager.DefaultDestinationDirectory,

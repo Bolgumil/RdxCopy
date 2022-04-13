@@ -1,30 +1,20 @@
-﻿using System.Collections.Concurrent;
+﻿using RdxCopy.CopyManager.DTOs;
+using System.Collections.Concurrent;
 
 namespace RdxCopy.CopyManager
 {
     public class CopyManager
     {
-        private ConcurrentDictionary<(string src, string dest), byte> _copyRepository;
+        private ConcurrentDictionary<string, (Task copyTask, ConcurrentQueue<FileCopyDTO> fileQueue)> _copyRepository;
 
         public CopyManager()
         {
-            _copyRepository = new ConcurrentDictionary<(string src, string dest), byte>();
+            _copyRepository = new ConcurrentDictionary<string, (Task copyTask, ConcurrentQueue<FileCopyDTO> fileQueue)>();
         }
 
         public Task StartCopy(string src, string dest, bool replace, bool recurse)
         {
-            var srcDestTuple = (src, dest);
-            if (_copyRepository.ContainsKey(srcDestTuple))
-            {
-                Console.WriteLine($"Copy already in progress from {src} to {dest}!");
-                Console.WriteLine(string.Empty);
-                return Task.CompletedTask;
-            }
-
-            _copyRepository.TryAdd(srcDestTuple, 0);
             var copyTask = CopyDirectory(src, dest, replace, recurse);
-            copyTask.ContinueWith(t => OnCopyTaskSuccess(t, srcDestTuple) , TaskContinuationOptions.OnlyOnRanToCompletion);
-            copyTask.ContinueWith(t => OnCopyTaskError(t, srcDestTuple), TaskContinuationOptions.OnlyOnFaulted);
 
             Console.WriteLine($"Copying {src} to {dest} in the background...");
             Console.WriteLine(string.Empty);
@@ -48,16 +38,20 @@ namespace RdxCopy.CopyManager
                 throw new DirectoryNotFoundException($"Source directory not found: {srcDir.FullName}");
 
             var filesPerExtension = DiscoverDirectory(src, recurse);
-            
-            var copyTasks = new List<Task>();
-            foreach (var files in filesPerExtension.Values)
+
+            foreach (var batch in filesPerExtension)
             {
-                var copyTask = new Task(() => CopyFilesSequentially(src, dest, replace, files));
-                copyTask.Start();
-                copyTasks.Add(copyTask);
+                if (_copyRepository.ContainsKey(batch.Key))
+                {
+                    AppendNewFilesToExtensionQueue(src, dest, replace, batch);
+                }
+                else
+                {
+                    StartNewExtensionCopyQueue(src, dest, replace, batch);
+                }
             }
 
-            return Task.WhenAll(copyTasks);
+            return Task.WhenAll(_copyRepository.Select(x => x.Value.copyTask));
         }
 
         /// <summary>
@@ -94,35 +88,73 @@ namespace RdxCopy.CopyManager
             return result;
         }
 
-        public void CopyFilesSequentially(string src, string dest, bool replace, List<FileInfo> files)
+        private void StartNewExtensionCopyQueue(string src, string dest, bool replace, KeyValuePair<string, List<FileInfo>> batch)
         {
-            foreach (var file in files)
+            var copyTask = new Task(() => CopyFilesSequentially(batch.Key));
+            var filesToCopy = batch.Value.Select(file => new FileCopyDTO
             {
-                var targetDirectory = file.DirectoryName.Replace(Path.GetFullPath(src), Path.GetFullPath(dest));
-                Directory.CreateDirectory(targetDirectory);
-                var fileFullPath = Path.Combine(targetDirectory, file.Name);
+                FileInfo = file,
+                Src = src,
+                Dest = dest,
+                Replace = replace
+            });
 
-                if (File.Exists(fileFullPath))
+            _copyRepository.TryAdd(
+                batch.Key,
+                (
+                    copyTask: copyTask,
+                    fileQueue: new ConcurrentQueue<FileCopyDTO>(filesToCopy)
+                ));
+
+            copyTask.Start();
+            copyTask.ContinueWith(t => OnCopyTaskSuccess(t, batch.Key), TaskContinuationOptions.OnlyOnRanToCompletion);
+            copyTask.ContinueWith(t => OnCopyTaskError(t, batch.Key), TaskContinuationOptions.OnlyOnFaulted);
+        }
+
+        private void AppendNewFilesToExtensionQueue(string src, string dest, bool replace, KeyValuePair<string, List<FileInfo>> batch)
+        {
+            foreach (var file in batch.Value)
+            {
+                _copyRepository[batch.Key].fileQueue.Enqueue(new FileCopyDTO
                 {
-                    if (replace) File.Delete(fileFullPath);
-                    else continue;
-                }
-
-                file.CopyTo(fileFullPath);
+                    FileInfo = file,
+                    Src = src,
+                    Dest = dest,
+                    Replace = replace
+                });
             }
         }
 
-        private void OnCopyTaskSuccess(Task t, (string src, string dest) srcDestTuple)
+        private void CopyFilesSequentially(string extension)
         {
-            _copyRepository.TryRemove(srcDestTuple, out _);
-            Console.WriteLine($"{Environment.NewLine}Copy {srcDestTuple.src} to {srcDestTuple.dest} finished!");
+            while (_copyRepository.ContainsKey(extension) &&
+                    _copyRepository[extension].fileQueue.TryDequeue(out var fileCopyDTO))
+            {
+                var targetDirectory = fileCopyDTO.FileInfo.DirectoryName.Replace(Path.GetFullPath(fileCopyDTO.Src), Path.GetFullPath(fileCopyDTO.Dest));
+                Directory.CreateDirectory(targetDirectory);
+                var fileFullPath = Path.Combine(targetDirectory, fileCopyDTO.FileInfo.Name);
+
+                if (File.Exists(fileFullPath))
+                {
+                    if (fileCopyDTO.Replace) File.Delete(fileFullPath);
+                    else continue;
+                }
+
+                fileCopyDTO.FileInfo.CopyTo(fileFullPath);
+            }
+        }
+
+        private void OnCopyTaskSuccess(Task t, string extension)
+        {
+            _copyRepository.TryRemove(extension, out _);
+            Console.WriteLine($"{Environment.NewLine}Copying files with Extension '{extension}' finished!");
             Console.Write(string.Empty);
         }
 
-        private void OnCopyTaskError(Task t, (string src, string dest) srcDestTuple)
+        private void OnCopyTaskError(Task t, string extension)
         {
-            _copyRepository.TryRemove(srcDestTuple, out _);
-            Console.WriteLine($"{Environment.NewLine}Copy {srcDestTuple.src} to {srcDestTuple.dest} failed!");
+            _copyRepository.TryRemove(extension, out _);
+            Console.WriteLine($"{Environment.NewLine}Copying files with Extension '{extension}' failed!");
             foreach (var e in t.Exception.InnerExceptions)
             {
                 Console.WriteLine($"{e.Message}");
