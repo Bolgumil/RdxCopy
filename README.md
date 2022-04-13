@@ -11,9 +11,7 @@
 
 
 ## Parameters
-###To copy a directory and files within it:  
- 
-----
+### To copy a directory and files within it: 
 ```-s <soure directory path>```:   
 The source directoy that will be copied to the destination.  
 Must be valid and existing directory.  
@@ -39,33 +37,36 @@ Optional parameter, default value: false.
 If set, the destination directory already contains one of the files, the file will be overwritten.  
 If not set, the file copy will be skipped and the original file remains.  
 Optional parameter, default value: false.  
-*Alias*:
+*Alias*:  
 --override  
   
 
-###To exit the program:  
  
 ----
+### To exit the program:  
+  
 ```-e```:  
 Exits the program.  
-*Alias*:
+*Alias*:  
 --exit  
   
 
-###To get help about valid arguments:  
  
 ----
+### To get help about valid arguments:  
+  
 ```-h```:
 Provides help about arguments.  
-*Alias*:
+*Alias*:  
 -?  
 --help  
   
 
-###To clear the console:  
  
 ----
+### To clear the console:  
+  
 ```-c```:  
 Clears the console.  
-*Alias*:
+*Alias*:  
 --clear  
